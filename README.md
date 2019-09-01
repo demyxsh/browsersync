@@ -1,12 +1,11 @@
 # browsersync
 [![Build Status](https://img.shields.io/travis/demyxco/browsersync?style=flat)](https://travis-ci.org/demyxco/browsersync)
 [![Docker Pulls](https://img.shields.io/docker/pulls/demyx/browsersync?style=flat&color=blue)](https://hub.docker.com/r/demyx/browsersync)
-[![Docker Layers](https://img.shields.io/microbadger/layers/demyx/browsersync?style=flat&color=blue)](https://hub.docker.com/r/demyx/browsersync)
-[![Docker Image Size](https://img.shields.io/microbadger/image-size/demyx/browsersync?style=flat&color=blue)](https://hub.docker.com/r/demyx/browsersync)
 [![Architecture](https://img.shields.io/badge/linux-amd64-important?style=flat&color=blue)](https://hub.docker.com/r/demyx/browsersync)
 [![Alpine](https://img.shields.io/badge/alpine-3.9.4-informational?style=flat&color=blue)](https://hub.docker.com/r/demyx/browsersync)
-[![Node](https://img.shields.io/badge/node-v12.9.0-informational?style=flat&color=blue)](https://hub.docker.com/r/demyx/browsersync)
+[![Node](https://img.shields.io/badge/node-v12.9.1-informational?style=flat&color=blue)](https://hub.docker.com/r/demyx/browsersync)
 [![BrowserSync](https://img.shields.io/badge/browsersync-2.26.7-informational?style=flat&color=blue)](https://hub.docker.com/r/demyx/browsersync)
+[![Buy Me A Coffee](https://img.shields.io/badge/buy_me_coffee-$5-informational?style=flat&color=blue)](https://www.buymeacoffee.com/VXqkQK5tb)
 
 With each web page, device and browser, testing time grows exponentially. From live reloads to URL pushing, form replication to click mirroring, Browsersync cuts out repetitive manual tasks. It’s like an extra pair of hands. Customise an array of sync settings from the UI or command line to create a personalised test environment. Need more control? Browsersync is easily integrated with your web platform, build tools, and other Node.js projects. https://www.browsersync.io/
 
@@ -16,7 +15,7 @@ ENTRYPOINT | dumb-init browsersync
 WORKDIR | /var/www/html
 PORT | 3000
 
-# Updates
+## Updates
 [![Code Size](https://img.shields.io/github/languages/code-size/demyxco/browsersync?style=flat&color=blue)](https://github.com/demyxco/browsersync)
 [![Repository Size](https://img.shields.io/github/repo-size/demyxco/browsersync?style=flat&color=blue)](https://github.com/demyxco/browsersync)
 [![Watches](https://img.shields.io/github/watchers/demyxco/browsersync?style=flat&color=blue)](https://github.com/demyxco/browsersync)
@@ -26,7 +25,7 @@ PORT | 3000
 * Auto built weekly on Sundays (America/Los_Angeles)
 * Rolling release updates
 
-# Usage
+## Usage
 ```
 docker run -dt --rm \
 --name browsersync \
