@@ -15,7 +15,7 @@ ENTRYPOINT | dumb-init browsersync
 WORKDIR | /var/www/html
 PORT | 3000
 
-## Updates
+## Updates & Support
 [![Code Size](https://img.shields.io/github/languages/code-size/demyxco/browsersync?style=flat&color=blue)](https://github.com/demyxco/browsersync)
 [![Repository Size](https://img.shields.io/github/repo-size/demyxco/browsersync?style=flat&color=blue)](https://github.com/demyxco/browsersync)
 [![Watches](https://img.shields.io/github/watchers/demyxco/browsersync?style=flat&color=blue)](https://github.com/demyxco/browsersync)
@@ -24,6 +24,7 @@ PORT | 3000
 
 * Auto built weekly on Sundays (America/Los_Angeles)
 * Rolling release updates
+* For support: [#demyx](https://webchat.freenode.net/?channel=#demyx)
 
 ## Usage
 ```
