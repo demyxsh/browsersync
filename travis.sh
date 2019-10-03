@@ -10,14 +10,10 @@ DEMYX_ALPINE_VERSION=$(docker run -t --rm node:alpine cat /etc/os-release | grep
 DEMYX_NODE_VERSION=$(docker run -t --rm --entrypoint node demyx/browsersync --version | sed -e 's/\r//g')
 DEMYX_BROWSERSYNC_VERSION=$(docker run -t --rm demyx/browsersync --version | sed -e 's/\r//g')
 
-# Replace the README.md
-[[ -f README.md ]] && rm README.md
-cp .readme README.md
-
-# Replace latest with actual versions
-sed -i "s/alpine-latest-informational/alpine-${DEMYX_ALPINE_VERSION}-informational/g" README.md
-sed -i "s/node-latest-informational/node-${DEMYX_NODE_VERSION}-informational/g" README.md
-sed -i "s/browsersync-latest-informational/browsersync-${DEMYX_BROWSERSYNC_VERSION}-informational/g" README.md
+# Replace versions
+sed -i "s|alpine-.*.-informational|alpine-${DEMYX_ALPINE_VERSION}-informational|g" README.md
+sed -i "s|node-.*.-informational|node-${DEMYX_NODE_VERSION}-informational|g" README.md
+sed -i "s|browsersync-.*.-informational|browsersync-${DEMYX_BROWSERSYNC_VERSION}-informational|g" README.md
 
 # Push back to GitHub
 git config --global user.email "travis@travis-ci.org"
