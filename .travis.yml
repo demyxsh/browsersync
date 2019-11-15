@@ -17,7 +17,7 @@ before_install:
 
 script:
   - docker build --no-cache -t demyx/"$DEMYX_REPOSITORY" .
-  - docker run -t --rm demyx/"$DEMYX_REPOSITORY" --version
+  - docker run -t --rm --entrypoint=browser-sync demyx/"$DEMYX_REPOSITORY" --version
 
 after_success:
   - echo "$DEMYX_PASSWORD" | docker login -u "$DEMYX_USERNAME" --password-stdin
