@@ -6,9 +6,9 @@ set -euo pipefail
 IFS=$'\n\t'
 
 # Get versions
-DEMYX_ALPINE_VERSION=$(docker run -t --rm node:alpine cat /etc/os-release | grep VERSION_ID | cut -c 12- | sed -e 's/\r//g')
-DEMYX_NODE_VERSION=$(docker run -t --rm --entrypoint node demyx/browsersync --version | sed -e 's/\r//g')
-DEMYX_BROWSERSYNC_VERSION=$(docker run -t --rm demyx/browsersync --version | sed -e 's/\r//g')
+DEMYX_ALPINE_VERSION=$(docker run --rm alpine cat /etc/os-release | grep VERSION_ID | cut -c 12- | sed -e 's/\r//g')
+DEMYX_NODE_VERSION=$(docker run --rm --entrypoint=node demyx/browsersync --version | sed -e 's/\r//g')
+DEMYX_BROWSERSYNC_VERSION=$(docker run --rm --entrypoint=browser-sync demyx/browsersync --version | sed -e 's/\r//g')
 
 # Replace versions
 sed -i "s|alpine-.*.-informational|alpine-${DEMYX_ALPINE_VERSION}-informational|g" README.md
