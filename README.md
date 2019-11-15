@@ -9,9 +9,10 @@
 
 With each web page, device and browser, testing time grows exponentially. From live reloads to URL pushing, form replication to click mirroring, Browsersync cuts out repetitive manual tasks. It’s like an extra pair of hands. Customise an array of sync settings from the UI or command line to create a personalised test environment. Need more control? Browsersync is easily integrated with your web platform, build tools, and other Node.js projects. https://www.browsersync.io/
 
-TITLE | DESCRIPTION
+DEMYX | BROWSERSYNC
 --- | ---
-ENTRYPOINT | dumb-init browsersync
+USER | demyx
+ENTRYPOINT | ["dumb-init", "browser-sync"]
 WORKDIR | /var/www/html
 PORT | 3000
 
@@ -27,12 +28,18 @@ PORT | 3000
 * For support: [#demyx](https://webchat.freenode.net/?channel=#demyx)
 
 ## Usage
+The URL will be `http://domain.tld/demyx/bs/`. Image is configured for https://demyx.sh.
+
 ```
 docker run -dt --rm \
---name browsersync \
---net demyx \
---volumes-from example_container \
+--name=browsersync \
+--net=demyx \
+--volumes-from=wordpress_container \
+-e BS_PROXY=wordpress_container \
+-e BS_DOMAIN=domain.tld \
+-e BS_FILES="[\"/var/www/html/wp-content/themes/**/*\", \"/var/www/html/wp-content/plugins/**/*\"]" \
+-e BS_PATH=/demyx \
 -p 3000:3000 \
 -p 3001:3001 \
-demyx/browsersync start --proxy example_container --files "/var/www/html/**/*" --host domain.tld --port 3000 --ui-port 3001
+demyx/browsersync
 ```
