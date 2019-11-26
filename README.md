@@ -28,18 +28,23 @@ PORT | 3000
 * For support: [#demyx](https://webchat.freenode.net/?channel=#demyx)
 
 ## Usage
-The URL will be `http://domain.tld/demyx/bs/`. Image is configured for https://demyx.sh.
+- The URL will be `http://domain.tld/demyx/bs/`
+- Set `BS_PATH=false` and `BS_PREFIX=false` to access BrowserSync without any prefixes
+- Image is configured for https://demyx.sh
 
 ```
 docker run -dt --rm \
 --name=browsersync \
 --net=demyx \
 --volumes-from=wordpress_container \
+-e BS_DOMAIN_MATCH=http://localhost \
+-e BS_DOMAIN_RETURN=http://localhost \
+-e BS_DOMAIN_SOCKET=http://localhost \
 -e BS_PROXY=wordpress_container \
 -e BS_DOMAIN=domain.tld \
 -e BS_FILES="[\"/var/www/html/wp-content/themes/**/*\", \"/var/www/html/wp-content/plugins/**/*\"]" \
 -e BS_PATH=/demyx \
+-e BS_PREFIX=/bs \
 -p 3000:3000 \
--p 3001:3001 \
 demyx/browsersync
 ```
