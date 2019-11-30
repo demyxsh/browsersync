@@ -15,8 +15,7 @@
 [[ "$BS_PREFIX" = false ]] && BS_PREFIX=
 
 # Generate browser-sync's config file
-echo '
-// AUTO GENERATED
+echo '// AUTO GENERATED
 module.exports={
     ui: false,
     open: false,
