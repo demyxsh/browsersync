@@ -6,6 +6,7 @@
 [![Node](https://img.shields.io/badge/node-v10.16.3-informational?style=flat&color=blue)](https://hub.docker.com/r/demyx/browsersync)
 [![BrowserSync](https://img.shields.io/badge/browsersync-2.26.7-informational?style=flat&color=blue)](https://hub.docker.com/r/demyx/browsersync)
 [![Buy Me A Coffee](https://img.shields.io/badge/buy_me_coffee-$5-informational?style=flat&color=blue)](https://www.buymeacoffee.com/VXqkQK5tb)
+[![Become a Patron!](https://img.shields.io/badge/become%20a%20patron-$5-informational?style=flat&color=blue)](https://www.patreon.com/bePatron?u=23406156)
 
 With each web page, device and browser, testing time grows exponentially. From live reloads to URL pushing, form replication to click mirroring, Browsersync cuts out repetitive manual tasks. It’s like an extra pair of hands. Customise an array of sync settings from the UI or command line to create a personalised test environment. Need more control? Browsersync is easily integrated with your web platform, build tools, and other Node.js projects. https://www.browsersync.io/
 
