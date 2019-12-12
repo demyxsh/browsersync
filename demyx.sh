@@ -1,40 +1,45 @@
 #!/bin/bash
 # Demyx
 # https://demyx.sh
+set -euo pipefail
 
-# Define default variables
-[[ -z "$BS_DOMAIN_MATCH" ]] && BS_DOMAIN_MATCH=http://localhost
-[[ -z "$BS_DOMAIN_RETURN" ]] && BS_DOMAIN_RETURN=http://localhost
-[[ -z "$BS_DOMAIN_SOCKET" ]] && BS_DOMAIN_SOCKET=http://localhost
-[[ -z "$BS_PROXY" ]] && BS_PROXY=localhost
-[[ -z "$BS_FILES" ]] && BS_FILES="[\"/var/www/html/wp-content/themes/**/*\", \"/var/www/html/wp-content/plugins/**/*\"]"
-[[ -z "$BS_PORT" ]] && BS_PORT=3000
-[[ -z "$BS_PATH" ]] && BS_PATH=/demyx
-[[ "$BS_PATH" = false ]] && BS_PATH=
-[[ -z "$BS_PREFIX" ]] && BS_PREFIX=/bs
-[[ "$BS_PREFIX" = false ]] && BS_PREFIX=
+# Set default variables
+BROWSERSYNC_DOMAIN_MATCH="${BROWSERSYNC_DOMAIN_MATCH:-http://localhost}"
+BROWSERSYNC_DOMAIN_RETURN="${BROWSERSYNC_DOMAIN_RETURN:-http://localhost}"
+BROWSERSYNC_DOMAIN_SOCKET="${BROWSERSYNC_DOMAIN_SOCKET:-http://localhost}"
+BROWSERSYNC_PROXY="${BROWSERSYNC_PROXY:-localhost}"
+BROWSERSYNC_FILES="${BROWSERSYNC_FILES:-[\"${BROWSERSYNC_ROOT}/**/*\", \"${BROWSERSYNC_ROOT}/wp-content/plugins/**/*\"]}"
+BROWSERSYNC_PORT="${BROWSERSYNC_PORT:-3000}"
+BROWSERSYNC_PATH="${BROWSERSYNC_PATH:-/demyx}"
+[[ "$BROWSERSYNC_PATH" = false ]] && BROWSERSYNC_PATH=
+BROWSERSYNC_PREFIX="${BROWSERSYNC_PREFIX:-/bs}"
+[[ "$BROWSERSYNC_PREFIX" = false ]] && BROWSERSYNC_PREFIX=
 
-# Generate browser-sync's config file
-echo '// AUTO GENERATED
+# Generate bs.js
+echo '// Demyx
+// https://demyx.sh
+// AUTO GENERATED
 module.exports={
     ui: false,
     open: false,
-    port: '$BS_PORT',
-    files: '$BS_FILES',
-    proxy: '\"$BS_PROXY\"',
+    port: '$BROWSERSYNC_PORT',
+    files: '$BROWSERSYNC_FILES',
+    proxy: '\"$BROWSERSYNC_PROXY\"',
     rewriteRules:[{
-        match: /'${BS_DOMAIN_MATCH/\/\//\\/\\/}'/g,
+        match: /'${BROWSERSYNC_DOMAIN_MATCH/\/\//\\/\\/}'/g,
         fn: function (e,r,t) {
-            return '\"${BS_DOMAIN_RETURN}${BS_PATH}${BS_PREFIX}\"'
+            return '\"${BROWSERSYNC_DOMAIN_RETURN}${BROWSERSYNC_PATH}${BROWSERSYNC_PREFIX}\"'
         }
     }],
     scriptPath: function (path) {
-        return '\"${BS_PATH}${BS_PREFIX}\"' + path;
+        return '\"${BROWSERSYNC_PATH}${BROWSERSYNC_PREFIX}\"' + path;
     },
     socket: {
-        domain: '\"$BS_DOMAIN_SOCKET\"'
+        domain: '\"$BROWSERSYNC_DOMAIN_SOCKET\"'
     }
-};' > /tmp/bs.js
-[[ "$BS_FILES" = false ]] && sed -i 's|files:|//files:|g' /tmp/bs.js
+};' > "$BROWSERSYNC_CONFIG"/bs.js
 
-browser-sync start --config=/tmp/bs.js
+# Disable file watching if BROWSERSYNC_FILES=false
+[[ "$BROWSERSYNC_FILES" = false ]] && sed -i 's|files:|//files:|g' "$BROWSERSYNC_CONFIG"/bs.js
+
+browser-sync start --config="$BROWSERSYNC_CONFIG"/bs.js

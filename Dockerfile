@@ -6,9 +6,14 @@ LABEL sh.demyx.url https://demyx.sh
 LABEL sh.demyx.github https://github.com/demyxco
 LABEL sh.demyx.registry https://hub.docker.com/u/demyx
 
+# Set default variables
+ENV BROWSERSYNC_ROOT=/demyx
+ENV BROWSERSYNC_CONFIG=/etc/demyx
+ENV TZ America/Los_Angeles
+
 # Install main packages
 RUN set -ex; \
-    apk add --update --no-cache dumb-init npm bash; \
+    apk add --update --no-cache bash dumb-init npm; \
     npm -g install browser-sync
 
 # Create demyx user
@@ -21,11 +26,11 @@ COPY demyx.sh /usr/local/bin/demyx
 
 # Finalize
 RUN set -ex; \
-    mkdir -p /var/www/html; \
-    chown demyx:demyx /var/www/html; \
+    install -d -m 0755 -o demyx -g demyx "$BROWSERSYNC_ROOT"; \
+    install -d -m 0755 -o demyx -g demyx "$BROWSERSYNC_CONFIG"; \
     chmod +x /usr/local/bin/demyx
 
-WORKDIR /var/www/html
+WORKDIR "$BROWSERSYNC_ROOT"
 
 EXPOSE 3000
 

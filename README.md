@@ -8,14 +8,39 @@
 [![Buy Me A Coffee](https://img.shields.io/badge/buy_me_coffee-$5-informational?style=flat&color=blue)](https://www.buymeacoffee.com/VXqkQK5tb)
 [![Become a Patron!](https://img.shields.io/badge/become%20a%20patron-$5-informational?style=flat&color=blue)](https://www.patreon.com/bePatron?u=23406156)
 
-With each web page, device and browser, testing time grows exponentially. From live reloads to URL pushing, form replication to click mirroring, Browsersync cuts out repetitive manual tasks. It’s like an extra pair of hands. Customise an array of sync settings from the UI or command line to create a personalised test environment. Need more control? Browsersync is easily integrated with your web platform, build tools, and other Node.js projects. https://www.browsersync.io/
+Non-root Docker image running Alpine Linux, Node.js, and BrowserSync.
 
 DEMYX | BROWSERSYNC
 --- | ---
-USER | demyx
-ENTRYPOINT | ["dumb-init", "browser-sync"]
-WORKDIR | /var/www/html
+TAGS | latest
 PORT | 3000
+USER | demyx
+WORKDIR | /demyx
+CONFIG | /etc/demyx
+ENTRYPOINT | ["dumb-init", "demyx"]
+TIMEZONE | America/Los_Angeles
+
+## Usage
+- The URL will be `http://domain.tld/demyx/bs/`
+- Set `BROWSERSYNC_PATH=false` and `BROWSERSYNC_PREFIX=false` to access BrowserSync without any prefixes
+- Image is configured for https://demyx.sh
+
+```
+docker run -dt --rm \
+--name=browsersync \
+--net=demyx \
+--volumes-from=wordpress_container \
+-e BROWSERSYNC_DOMAIN_MATCH=http://localhost \
+-e BROWSERSYNC_DOMAIN_RETURN=http://localhost \
+-e BROWSERSYNC_DOMAIN_SOCKET=http://localhost \
+-e BROWSERSYNC_PROXY=wordpress_container \
+-e BROWSERSYNC_FILES="[\"/var/www/html/wp-content/themes/**/*\", \"/var/www/html/wp-content/plugins/**/*\"]" \
+-e BROWSERSYNC_PORT=3000 \
+-e BROWSERSYNC_PATH=/demyx \
+-e BROWSERSYNC_PREFIX=/bs \
+-p 3000:3000 \
+demyx/browsersync
+```
 
 ## Updates & Support
 [![Code Size](https://img.shields.io/github/languages/code-size/demyxco/browsersync?style=flat&color=blue)](https://github.com/demyxco/browsersync)
@@ -27,25 +52,3 @@ PORT | 3000
 * Auto built weekly on Sundays (America/Los_Angeles)
 * Rolling release updates
 * For support: [#demyx](https://webchat.freenode.net/?channel=#demyx)
-
-## Usage
-- The URL will be `http://domain.tld/demyx/bs/`
-- Set `BS_PATH=false` and `BS_PREFIX=false` to access BrowserSync without any prefixes
-- Image is configured for https://demyx.sh
-
-```
-docker run -dt --rm \
---name=browsersync \
---net=demyx \
---volumes-from=wordpress_container \
--e BS_DOMAIN_MATCH=http://localhost \
--e BS_DOMAIN_RETURN=http://localhost \
--e BS_DOMAIN_SOCKET=http://localhost \
--e BS_PROXY=wordpress_container \
--e BS_DOMAIN=domain.tld \
--e BS_FILES="[\"/var/www/html/wp-content/themes/**/*\", \"/var/www/html/wp-content/plugins/**/*\"]" \
--e BS_PATH=/demyx \
--e BS_PREFIX=/bs \
--p 3000:3000 \
-demyx/browsersync
-```
