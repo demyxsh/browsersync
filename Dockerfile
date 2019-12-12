@@ -9,25 +9,28 @@ LABEL sh.demyx.registry https://hub.docker.com/u/demyx
 # Set default variables
 ENV BROWSERSYNC_ROOT=/demyx
 ENV BROWSERSYNC_CONFIG=/etc/demyx
+ENV BROWSERSYNC_LOG=/var/log/demyx
 ENV TZ America/Los_Angeles
+
+# Configure Demyx
+RUN set -ex; \
+    addgroup -g 1000 -S demyx; \
+    adduser -u 1000 -D -S -G demyx demyx; \
+    \
+    install -d -m 0755 -o demyx -g demyx "$BROWSERSYNC_ROOT"; \
+    install -d -m 0755 -o demyx -g demyx "$BROWSERSYNC_CONFIG"; \
+    install -d -m 0755 -o demyx -g demyx "$BROWSERSYNC_LOG"
 
 # Install main packages
 RUN set -ex; \
     apk add --update --no-cache bash dumb-init npm; \
     npm -g install browser-sync
-
-# Create demyx user
-RUN set -ex; \
-    addgroup -g 1000 -S demyx; \
-    adduser -u 1000 -D -S -G demyx demyx
     
 # Copy entrypoint
 COPY demyx.sh /usr/local/bin/demyx
 
 # Finalize
 RUN set -ex; \
-    install -d -m 0755 -o demyx -g demyx "$BROWSERSYNC_ROOT"; \
-    install -d -m 0755 -o demyx -g demyx "$BROWSERSYNC_CONFIG"; \
     chmod +x /usr/local/bin/demyx
 
 WORKDIR "$BROWSERSYNC_ROOT"
