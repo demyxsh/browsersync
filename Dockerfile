@@ -31,8 +31,8 @@ COPY src "$BROWSERSYNC_CONFIG"
 
 # Finalize
 RUN set -ex; \
-    mv "$BROWSERSYNC_CONFIG"/entrypoint.sh /usr/local/bin/demyx; \
-    chmod +x /usr/local/bin/demyx
+    chmod +x "$BROWSERSYNC_CONFIG"/entrypoint.sh; \
+    ln -s "$BROWSERSYNC_CONFIG"/entrypoint.sh /usr/local/bin/demyx-entrypoint
 
 WORKDIR "$BROWSERSYNC_ROOT"
 
@@ -40,4 +40,4 @@ EXPOSE 3000
 
 USER demyx
 
-ENTRYPOINT ["demyx"]
+ENTRYPOINT ["demyx-entrypoint"]
