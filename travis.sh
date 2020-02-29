@@ -6,9 +6,9 @@ set -euo pipefail
 IFS=$'\n\t'
 
 # Get versions
-DEMYX_ALPINE_VERSION="$(docker run -t --rm --entrypoint=sh demyx/"$DEMYX_REPOSITORY" | grep VERSION_ID | cut -c 12- | sed 's/\r//g')"
-DEMYX_NODE_VERSION="$(docker run -t --rm --entrypoint=node demyx/"$DEMYX_REPOSITORY" --version | sed 's/\r//g')"
-DEMYX_BROWSERSYNC_VERSION="$(docker run -t --rm --entrypoint=browser-sync demyx/"$DEMYX_REPOSITORY" --version | sed 's/\r//g')"
+DEMYX_ALPINE_VERSION="$(docker exec -t "$DEMYX_REPOSITORY" cat /etc/os-release | grep VERSION_ID | cut -c 12- | sed 's/\r//g')"
+DEMYX_NODE_VERSION="$(docker exec -t "$DEMYX_REPOSITORY" node --version | sed 's/\r//g')"
+DEMYX_BROWSERSYNC_VERSION="$(docker exec -t "$DEMYX_REPOSITORY" browser-sync --version | sed 's/\r//g')"
 
 # Echo versions to file
 echo "DEMYX_ALPINE_VERSION=$DEMYX_ALPINE_VERSION
