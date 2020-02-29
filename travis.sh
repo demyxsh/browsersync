@@ -24,9 +24,10 @@ sed -i "s|${DEMYX_REPOSITORY}-.*.-informational|${DEMYX_REPOSITORY}-${DEMYX_BROW
 git config --global user.email "travis@travis-ci.org"
 git config --global user.name "Travis CI"
 git remote set-url origin https://${DEMYX_GITHUB_TOKEN}@github.com/demyxco/"$DEMYX_REPOSITORY".git
-# Add and commit version file first
+# Push VERSION file first
 git add VERSION
 git commit -m "ALPINE $DEMYX_ALPINE_VERSION, NODE $DEMYX_NODE_VERSION, BROWSERSYNC $DEMYX_BROWSERSYNC_VERSION"
+git push origin HEAD:master
 # Add and commit the rest
 git add .
 git commit -m "Travis Build $TRAVIS_BUILD_NUMBER"
