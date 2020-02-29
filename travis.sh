@@ -10,25 +10,24 @@ DEMYX_ALPINE_VERSION="$(docker exec -t "$DEMYX_REPOSITORY" cat /etc/os-release |
 DEMYX_NODE_VERSION="$(docker exec -t "$DEMYX_REPOSITORY" node --version | sed 's/\r//g')"
 DEMYX_BROWSERSYNC_VERSION="$(docker exec -t "$DEMYX_REPOSITORY" browser-sync --version | sed 's/\r//g')"
 
-# Echo versions to file
-echo "DEMYX_ALPINE_VERSION=$DEMYX_ALPINE_VERSION
-DEMYX_NODE_VERSION=$DEMYX_NODE_VERSION
-DEMYX_BROWSERSYNC_VERSION=$DEMYX_BROWSERSYNC_VERSION" > VERSION
-
 # Replace versions
 sed -i "s|alpine-.*.-informational|alpine-${DEMYX_ALPINE_VERSION}-informational|g" README.md
 sed -i "s|node-.*.-informational|node-${DEMYX_NODE_VERSION}-informational|g" README.md
 sed -i "s|${DEMYX_REPOSITORY}-.*.-informational|${DEMYX_REPOSITORY}-${DEMYX_BROWSERSYNC_VERSION}-informational|g" README.md
 
+# Echo versions to file
+echo "DEMYX_ALPINE_VERSION=$DEMYX_ALPINE_VERSION
+DEMYX_NODE_VERSION=$DEMYX_NODE_VERSION
+DEMYX_BROWSERSYNC_VERSION=$DEMYX_BROWSERSYNC_VERSION" > VERSION
+
 # Push back to GitHub
 git config --global user.email "travis@travis-ci.org"
 git config --global user.name "Travis CI"
 git remote set-url origin https://${DEMYX_GITHUB_TOKEN}@github.com/demyxco/"$DEMYX_REPOSITORY".git
-# Push VERSION file first
+# Commit VERSION first
 git add VERSION
 git commit -m "ALPINE $DEMYX_ALPINE_VERSION, NODE $DEMYX_NODE_VERSION, BROWSERSYNC $DEMYX_BROWSERSYNC_VERSION"
-git push origin HEAD:master
-# Add and commit the rest
+# Commit the rest
 git add .
 git commit -m "Travis Build $TRAVIS_BUILD_NUMBER"
 git push origin HEAD:master
