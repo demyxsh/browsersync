@@ -1,16 +1,16 @@
 FROM alpine
 
-LABEL sh.demyx.image demyx/browsersync
-LABEL sh.demyx.maintainer Demyx <info@demyx.sh>
-LABEL sh.demyx.url https://demyx.sh
-LABEL sh.demyx.github https://github.com/demyxco
-LABEL sh.demyx.registry https://hub.docker.com/u/demyx
+LABEL sh.demyx.image        demyx/browsersync
+LABEL sh.demyx.maintainer   Demyx <info@demyx.sh>
+LABEL sh.demyx.url          https://demyx.sh
+LABEL sh.demyx.github       https://github.com/demyxco
+LABEL sh.demyx.registry     https://hub.docker.com/u/demyx
 
 # Set default variables
-ENV BROWSERSYNC_ROOT /demyx
-ENV BROWSERSYNC_CONFIG /etc/demyx
-ENV BROWSERSYNC_LOG /var/log/demyx
-ENV TZ America/Los_Angeles
+ENV BROWSERSYNC_ROOT    /demyx
+ENV BROWSERSYNC_CONFIG  /etc/demyx
+ENV BROWSERSYNC_LOG     /var/log/demyx
+ENV TZ                  America/Los_Angeles
 
 # Configure Demyx
 RUN set -ex; \
