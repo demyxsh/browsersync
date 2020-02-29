@@ -7,9 +7,9 @@ LABEL sh.demyx.github https://github.com/demyxco
 LABEL sh.demyx.registry https://hub.docker.com/u/demyx
 
 # Set default variables
-ENV BROWSERSYNC_ROOT=/demyx
-ENV BROWSERSYNC_CONFIG=/etc/demyx
-ENV BROWSERSYNC_LOG=/var/log/demyx
+ENV BROWSERSYNC_ROOT /demyx
+ENV BROWSERSYNC_CONFIG /etc/demyx
+ENV BROWSERSYNC_LOG /var/log/demyx
 ENV TZ America/Los_Angeles
 
 # Configure Demyx
