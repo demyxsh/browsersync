@@ -26,11 +26,12 @@ RUN set -ex; \
     apk add --update --no-cache bash dumb-init npm; \
     npm -g install browser-sync
     
-# Copy entrypoint
-COPY demyx.sh /usr/local/bin/demyx
+# Copy the sauce
+COPY src "$BROWSERSYNC_CONFIG"
 
 # Finalize
 RUN set -ex; \
+    mv "$BROWSERSYNC_CONFIG"/entrypoint.sh /usr/local/bin/demyx; \
     chmod +x /usr/local/bin/demyx
 
 WORKDIR "$BROWSERSYNC_ROOT"
@@ -39,4 +40,4 @@ EXPOSE 3000
 
 USER demyx
 
-ENTRYPOINT ["dumb-init", "demyx"]
+ENTRYPOINT ["demyx"]
