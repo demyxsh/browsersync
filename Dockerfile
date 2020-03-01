@@ -21,13 +21,13 @@ RUN set -ex; \
     install -d -m 0755 -o demyx -g demyx "$BROWSERSYNC_CONFIG"; \
     install -d -m 0755 -o demyx -g demyx "$BROWSERSYNC_LOG"
 
+# Copy source
+COPY src "$BROWSERSYNC_CONFIG"
+
 # Install main packages
 RUN set -ex; \
     apk add --update --no-cache bash dumb-init npm; \
     npm -g install browser-sync
-    
-# Copy the sauce
-COPY src "$BROWSERSYNC_CONFIG"
 
 # Finalize
 RUN set -ex; \
