@@ -22,7 +22,7 @@ RUN set -ex; \
     install -d -m 0755 -o demyx -g demyx "$BROWSERSYNC_LOG"
 
 # Copy source
-COPY src "$BROWSERSYNC_CONFIG"
+COPY --chown=demyx:demyx src "$BROWSERSYNC_CONFIG"
 
 # Install main packages
 RUN set -ex; \
