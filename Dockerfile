@@ -31,8 +31,12 @@ RUN set -ex; \
 
 # Finalize
 RUN set -ex; \
+    # demyx-entrypoint
     chmod +x "$BROWSERSYNC_CONFIG"/entrypoint.sh; \
-    ln -s "$BROWSERSYNC_CONFIG"/entrypoint.sh /usr/local/bin/demyx-entrypoint
+    mv "$BROWSERSYNC_CONFIG"/entrypoint.sh /usr/local/bin/demyx-entrypoint; \
+    \
+    # Reset permissions
+    chown -R root:root /usr/local/bin
 
 WORKDIR "$BROWSERSYNC_ROOT"
 
