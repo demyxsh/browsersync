@@ -2,7 +2,7 @@
 [![Build Status](https://img.shields.io/travis/demyxco/browsersync?style=flat)](https://travis-ci.org/demyxco/browsersync)
 [![Docker Pulls](https://img.shields.io/docker/pulls/demyx/browsersync?style=flat&color=blue)](https://hub.docker.com/r/demyx/browsersync)
 [![Architecture](https://img.shields.io/badge/linux-amd64-important?style=flat&color=blue)](https://hub.docker.com/r/demyx/browsersync)
-[![Alpine](https://img.shields.io/badge/alpine-3.11.5-informational?style=flat&color=blue)](https://hub.docker.com/r/demyx/browsersync)
+[![Alpine](https://img.shields.io/badge/alpine-3.11.6-informational?style=flat&color=blue)](https://hub.docker.com/r/demyx/browsersync)
 [![Node](https://img.shields.io/badge/node-v12.15.0-informational?style=flat&color=blue)](https://hub.docker.com/r/demyx/browsersync)
 [![BrowserSync](https://img.shields.io/badge/browsersync-2.26.7-informational?style=flat&color=blue)](https://hub.docker.com/r/demyx/browsersync)
 [![Buy Me A Coffee](https://img.shields.io/badge/buy_me_coffee-$5-informational?style=flat&color=blue)](https://www.buymeacoffee.com/VXqkQK5tb)
