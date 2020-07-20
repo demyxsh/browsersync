@@ -27,7 +27,7 @@ COPY --chown=demyx:demyx src "$BROWSERSYNC_CONFIG"
 # Install main packages
 RUN set -ex; \
     apk add --update --no-cache bash dumb-init npm; \
-    npm -g install browser-sync
+    npm -g install browser-sync@2.26.7
 
 # Finalize
 RUN set -ex; \

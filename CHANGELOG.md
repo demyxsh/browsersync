@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 2020-07-20
+### Changed
+- Downgrade browser-sync to 2.26.7 due to upstream issues
+
 ## 2020-04-13
 ### Added
 - .dockerignore
