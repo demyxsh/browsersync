@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 2020-07-26
+### Changed
+- Upstream fixed the invalid first argument error
+
 ## 2020-07-20
 ### Changed
 - Downgrade browser-sync to 2.26.7 due to upstream issues
