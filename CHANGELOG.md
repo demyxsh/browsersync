@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 2020-11-22
+### Changed
+- Rename variables and support old ones
+- Use full paths to binaries/scripts
+
 ## 2020-07-26
 ### Changed
 - Upstream fixed the invalid first argument error

@@ -17,12 +17,12 @@ PORT | 3000
 USER | demyx
 WORKDIR | /demyx
 CONFIG | /etc/demyx
-ENTRYPOINT | ["dumb-init", "demyx"]
+ENTRYPOINT | /usr/local/bin/demyx-entrypoint
 TIMEZONE | America/Los_Angeles
 
 ## Usage
 - The URL will be `http://domain.tld/demyx/bs/`
-- Set `BROWSERSYNC_PATH=false` and `BROWSERSYNC_PREFIX=false` to access BrowserSync without any prefixes
+- Set `DEMYX_PATH=false` and `DEMYX_PREFIX=false` to access BrowserSync without any prefixes
 - Image is configured for https://demyx.sh
 
 ```
@@ -30,14 +30,14 @@ docker run -dt --rm \
 --name=browsersync \
 --net=demyx \
 --volumes-from=wordpress_container \
--e BROWSERSYNC_DOMAIN_MATCH=http://localhost \
--e BROWSERSYNC_DOMAIN_RETURN=http://localhost \
--e BROWSERSYNC_DOMAIN_SOCKET=http://localhost \
--e BROWSERSYNC_PROXY=wordpress_container \
--e BROWSERSYNC_FILES="[\"/var/www/html/wp-content/themes/**/*\", \"/var/www/html/wp-content/plugins/**/*\"]" \
--e BROWSERSYNC_PORT=3000 \
--e BROWSERSYNC_PATH=/demyx \
--e BROWSERSYNC_PREFIX=/bs \
+-e DEMYX_DOMAIN_MATCH=http://localhost \
+-e DEMYX_DOMAIN_RETURN=http://localhost \
+-e DEMYX_DOMAIN_SOCKET=http://localhost \
+-e DEMYX_PROXY=wordpress_container \
+-e DEMYX_FILES="[\"/var/www/html/wp-content/themes/**/*\", \"/var/www/html/wp-content/plugins/**/*\"]" \
+-e DEMYX_PORT=3000 \
+-e DEMYX_PATH=/demyx \
+-e DEMYX_PREFIX=/bs \
 -p 3000:3000 \
 demyx/browsersync
 ```
