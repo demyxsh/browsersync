@@ -1,52 +1,40 @@
 #!/bin/bash
 # Demyx
 # https://demyx.sh
-# https://github.com/peter-evans/dockerhub-description/blob/master/entrypoint.sh
-IFS=$'\n\t'
 
 # Get versions
-DEMYX_BROWSERSYNC_ALPINE_VERSION="$(docker exec -t "$DEMYX_REPOSITORY" cat /etc/os-release | grep VERSION_ID | cut -c 12- | sed 's/\r//g')"
-DEMYX_BROWSERSYNC_NODE_VERSION="$(docker exec -t "$DEMYX_REPOSITORY" node --version | sed 's/\r//g')"
-DEMYX_BROWSERSYNC_VERSION="$(docker exec -t "$DEMYX_REPOSITORY" browser-sync --version | sed 's/\r//g')"
+DEMYX_BROWSERSYNC_ALPINE_VERSION="$(/usr/bin/docker exec -t "$DEMYX_REPOSITORY" /bin/cat /etc/os-release | /bin/grep VERSION_ID | /usr/bin/cut -c 12- | /bin/sed 's/\r//g')"
+DEMYX_BROWSERSYNC_NODE_VERSION="$(/usr/bin/docker exec -t "$DEMYX_REPOSITORY" /usr/bin/node --version | /bin/sed 's/\r//g')"
+DEMYX_BROWSERSYNC_VERSION="$(/usr/bin/docker exec -t "$DEMYX_REPOSITORY" /usr/bin/browser-sync --version | /bin/sed 's/\r//g')"
 
 # Replace versions
-sed -i "s|alpine-.*.-informational|alpine-${DEMYX_BROWSERSYNC_ALPINE_VERSION}-informational|g" README.md
-sed -i "s|node-.*.-informational|node-${DEMYX_BROWSERSYNC_NODE_VERSION}-informational|g" README.md
-sed -i "s|${DEMYX_REPOSITORY}-.*.-informational|${DEMYX_REPOSITORY}-${DEMYX_BROWSERSYNC_VERSION}-informational|g" README.md
+/bin/sed -i "s|alpine-.*.-informational|alpine-${DEMYX_BROWSERSYNC_ALPINE_VERSION}-informational|g" README.md
+/bin/sed -i "s|node-.*.-informational|node-${DEMYX_BROWSERSYNC_NODE_VERSION}-informational|g" README.md
+/bin/sed -i "s|${DEMYX_REPOSITORY}-.*.-informational|${DEMYX_REPOSITORY}-${DEMYX_BROWSERSYNC_VERSION}-informational|g" README.md
 
 # Echo versions to file
-echo "DEMYX_BROWSERSYNC_ALPINE_VERSION=$DEMYX_BROWSERSYNC_ALPINE_VERSION
+/bin/echo "DEMYX_BROWSERSYNC_ALPINE_VERSION=$DEMYX_BROWSERSYNC_ALPINE_VERSION
 DEMYX_BROWSERSYNC_NODE_VERSION=$DEMYX_BROWSERSYNC_NODE_VERSION
 DEMYX_BROWSERSYNC_VERSION=$DEMYX_BROWSERSYNC_VERSION" > VERSION
 
 # Push back to GitHub
-git config --global user.email "travis@travis-ci.org"
-git config --global user.name "Travis CI"
-git remote set-url origin https://${DEMYX_GITHUB_TOKEN}@github.com/demyxco/"$DEMYX_REPOSITORY".git
+/usr/bin/git config --global user.email "travis@travis-ci.org"
+/usr/bin/git config --global user.name "Travis CI"
+/usr/bin/git remote set-url origin https://${DEMYX_GITHUB_TOKEN}@github.com/demyxco/"$DEMYX_REPOSITORY".git
 # Commit VERSION first
-git add VERSION
-git commit -m "ALPINE $DEMYX_BROWSERSYNC_ALPINE_VERSION, NODE $DEMYX_BROWSERSYNC_NODE_VERSION, BROWSERSYNC $DEMYX_BROWSERSYNC_VERSION"
-git push origin HEAD:master
+/usr/bin/git add VERSION
+/usr/bin/git commit -m "ALPINE $DEMYX_BROWSERSYNC_ALPINE_VERSION, NODE $DEMYX_BROWSERSYNC_NODE_VERSION, BROWSERSYNC $DEMYX_BROWSERSYNC_VERSION"
+/usr/bin/git push origin HEAD:master
 # Commit the rest
-git add .
-git commit -m "Travis Build $TRAVIS_BUILD_NUMBER"
-git push origin HEAD:master
-
-# Set the default path to README.md
-README_FILEPATH="./README.md"
-
-# Acquire a token for the Docker Hub API
-echo "Acquiring token"
-TOKEN="$(curl -s -H "Content-Type: application/json" -X POST -d '{"username": "'$DEMYX_USERNAME'", "password": "'$DEMYX_PASSWORD'"}' https://hub.docker.com/v2/users/login/ | jq -r .token)"
+/usr/bin/git add .
+/usr/bin/git commit -m "Travis Build $TRAVIS_BUILD_NUMBER"
+/usr/bin/git push origin HEAD:master
 
 # Send a PATCH request to update the description of the repository
-echo "Sending PATCH request"
-REPO_URL="https://hub.docker.com/v2/repositories/${DEMYX_USERNAME}/${DEMYX_REPOSITORY}/"
-RESPONSE_CODE=$(curl -s --write-out %{response_code} --output /dev/null -H "Authorization: JWT ${TOKEN}" -X PATCH --data-urlencode full_description@${README_FILEPATH} ${REPO_URL})
-echo "Received response code: $RESPONSE_CODE"
+/bin/echo "Sending PATCH request"
+DEMYX_DOCKER_TOKEN="$(/usr/bin/curl -s -H "Content-Type: application/json" -X POST -d '{"username": "'"$DEMYX_USERNAME"'", "password": "'"$DEMYX_PASSWORD"'"}' "https://hub.docker.com/v2/users/login/" | /usr/local/bin/jq -r .token)"
+DEMYX_RESPONSE_CODE="$(/usr/bin/curl -s --write-out "%{response_code}" --output /dev/null -H "Authorization: JWT ${DEMYX_DOCKER_TOKEN}" -X PATCH --data-urlencode full_description@"README.md" "https://hub.docker.com/v2/repositories/${DEMYX_USERNAME}/${DEMYX_REPOSITORY}/")"
+/bin/echo "Received response code: $DEMYX_RESPONSE_CODE"
 
-if [ $RESPONSE_CODE -eq 200 ]; then
-  exit 0
-else
-  exit 1
-fi
+# Return an exit 1 code if response isn't 200
+[[ "$DEMYX_RESPONSE_CODE" != 200 ]] && exit 1
