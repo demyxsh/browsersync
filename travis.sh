@@ -20,7 +20,7 @@ DEMYX_BROWSERSYNC_VERSION=$DEMYX_BROWSERSYNC_VERSION" > VERSION
 # Push back to GitHub
 /usr/bin/git config --global user.email "travis@travis-ci.com"
 /usr/bin/git config --global user.name "Travis CI"
-/usr/bin/git remote set-url origin https://${DEMYX_GITHUB_TOKEN}@github.com/demyxco/"$DEMYX_REPOSITORY".git
+/usr/bin/git remote set-url origin https://"$DEMYX_GITHUB_TOKEN"@github.com/demyxco/"$DEMYX_REPOSITORY".git
 # Commit VERSION first
 /usr/bin/git add VERSION
 /usr/bin/git commit -m "ALPINE $DEMYX_BROWSERSYNC_ALPINE_VERSION, NODE $DEMYX_BROWSERSYNC_NODE_VERSION, BROWSERSYNC $DEMYX_BROWSERSYNC_VERSION"
