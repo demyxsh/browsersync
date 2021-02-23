@@ -24,30 +24,33 @@ ENV BROWSERSYNC_CONFIG          "$DEMYX_CONFIG"
 ENV BROWSERSYNC_LOG             "$DEMYX_LOG"
 ENV BROWSERSYNC_ROOT            "$DEMYX"
 
-# Configure Demyx
-RUN set -ex; \
-    /usr/sbin/addgroup -g 1000 -S demyx; \
-    /usr/sbin/adduser -u 1000 -D -S -G demyx demyx; \
-    \
-    /usr/bin/install -d -m 0755 -o demyx -g demyx "$DEMYX"; \
-    /usr/bin/install -d -m 0755 -o demyx -g demyx "$DEMYX_CONFIG"; \
-    /usr/bin/install -d -m 0755 -o demyx -g demyx "$DEMYX_LOG"
-
-# Imports
-COPY --chown=demyx:demyx src "$DEMYX_CONFIG"
-
 # Packages
 RUN set -ex; \
-    /sbin/apk add --update --no-cache bash npm; \
-    /usr/bin/npm -g install browser-sync
+    apk add --update --no-cache bash npm; \
+    \
+    npm -g install browser-sync
+
+# Configure Demyx
+RUN set -ex; \
+    # Create demyx user
+    addgroup -g 1000 -S demyx; \
+    adduser -u 1000 -D -S -G demyx demyx; \
+    \
+    # Create demyx directories
+    install -d -m 0755 -o demyx -g demyx "$DEMYX"; \
+    install -d -m 0755 -o demyx -g demyx "$DEMYX_CONFIG"; \
+    install -d -m 0755 -o demyx -g demyx "$DEMYX_LOG"; \
+    \
+    # Update .bashrc
+    echo 'PS1="$(whoami)@\h:\w \$ "' > /home/demyx/.bashrc; \
+    echo 'PS1="$(whoami)@\h:\w \$ "' > /root/.bashrc
+
+# Imports
+COPY --chown=root:root bin /usr/local/bin
 
 # Finalize
 RUN set -ex; \
-    # demyx-entrypoint
-    /bin/cp "$DEMYX_CONFIG"/entrypoint.sh /usr/local/bin/demyx-entrypoint; \
-    /bin/chmod +x /usr/local/bin/demyx-entrypoint; \
-    \
-    # Reset permissions
+    # Set ownership
     /bin/chown -R root:root /usr/local/bin
 
 WORKDIR "$DEMYX"
@@ -56,4 +59,4 @@ EXPOSE "$DEMYX_PORT"
 
 USER demyx
 
-ENTRYPOINT ["/usr/local/bin/demyx-entrypoint"]
+ENTRYPOINT ["demyx-entrypoint"]
