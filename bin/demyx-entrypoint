@@ -14,7 +14,7 @@ set -euo pipefail
 [[ -n "${BROWSERSYNC_PROXY:-}" ]] && DEMYX_PROXY="$BROWSERSYNC_PROXY"
 
 # Generate bs.js
-/bin/echo '// Demyx
+echo '// Demyx
 // https://demyx.sh
 // AUTO GENERATED
 module.exports={
@@ -40,4 +40,4 @@ module.exports={
 # Disable file watching if DEMYX_FILES=false or empty
 [[ "$DEMYX_FILES" = false || -z "$DEMYX_FILES" ]] && sed -i 's|files:|//files:|g' "$DEMYX_CONFIG"/bs.js
 
-/usr/bin/browser-sync start --config="$DEMYX_CONFIG"/bs.js
+browser-sync start --config="$DEMYX_CONFIG"/bs.js
