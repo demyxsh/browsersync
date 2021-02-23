@@ -1,5 +1,20 @@
 # CHANGELOG
 
+## 2021-02-22
+- Added
+    - `bin/demyx-entrypoint`
+- Changed
+    - Renamed src to bin.
+    - Renamed entrypoint.sh to demyx-entrypoint.
+    - `bin/demyx-entrypoint`
+        - Remove full paths to binaries.
+    - `Dockerfile`
+        - Remove full paths to binaries.
+        - Rearrange RUN commands.
+        - Update bash PS1.
+        - Update COPY directory.
+- Removed
+
 ## 2020-11-22
 ### Changed
 - Rename variables and support old ones
