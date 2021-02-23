@@ -51,7 +51,7 @@ COPY --chown=root:root bin /usr/local/bin
 # Finalize
 RUN set -ex; \
     # Set ownership
-    /bin/chown -R root:root /usr/local/bin
+    chown -R root:root /usr/local/bin
 
 WORKDIR "$DEMYX"
 
