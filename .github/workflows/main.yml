@@ -31,7 +31,7 @@ jobs:
           docker run -d --name=${{ env.DEMYX_REPOSITORY }} --entrypoint=top demyx/${{ env.DEMYX_REPOSITORY }}
 
           DEMYX_TEST="$(docker exec ${{ env.DEMYX_REPOSITORY }} browser-sync --version 2>&1)"
-          if [[ "$DEMYX_TEST" =~ ^[0-9]+$ ]]; then
+          if [[ "$DEMYX_TEST" =~ ^[0-9\.]+$ ]]; then
             echo "$DEMYX_TEST"
           else
             exit 1
