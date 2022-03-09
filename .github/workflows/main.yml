@@ -60,7 +60,7 @@ jobs:
             git config --global user.email github-actions[bot]@users.noreply.github.com
             git remote set-url origin https://demyxsh:${{ secrets.DEMYX_TOKEN }}@github.com/demyxsh/${{ env.DEMYX_REPOSITORY }}
             git add .
-            git commit -m "$DEMYX_RANDOM_QUOTE"
+            git commit -m "${DEMYX_RANDOM_QUOTE:-Scheduled Build}"
             git push
           fi
 
