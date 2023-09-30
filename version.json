@@ -1,5 +1,5 @@
 {
-  "alpine": "3.18.3",
+  "alpine": "3.18.4",
   "node": "v20.5.0",
   "browsersync": "2.29.3"
 }
