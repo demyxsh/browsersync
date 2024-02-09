@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 2024-02-08
+- Update description with shameless plug and support link [f572e6f](https://github.com/demyxsh/browsersync/commit/f572e6f732d021914f12fb7e7b198c58918dd71b)
+- Set base image to Alpine 3.18 [ad1e6af](https://github.com/demyxsh/browsersync/commit/ad1e6aff61311b04cc087a081f0697aef381fa26)
+
 ## 2021-02-22
 - Added
     - `bin/demyx-entrypoint`
