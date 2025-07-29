@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## 2025-07-28
+- Update GitHub Actions workflow to use run ID in commit message for scheduled builds [113e6c2](https://github.com/demyxsh/browsersync/commit/113e6c2fa9ebf71c217bba0b2811647de32322a6)
+
 ## 2024-02-08
 - Update description with shameless plug and support link [f572e6f](https://github.com/demyxsh/browsersync/commit/f572e6f732d021914f12fb7e7b198c58918dd71b)
 - Set base image to Alpine 3.18 [ad1e6af](https://github.com/demyxsh/browsersync/commit/ad1e6aff61311b04cc087a081f0697aef381fa26)
