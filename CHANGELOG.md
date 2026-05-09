@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## 2026-05-09
+- Set base image to Alpine 3.22
+
 ## 2025-07-28
 - Update GitHub Actions workflow to use run ID in commit message for scheduled builds [113e6c2](https://github.com/demyxsh/browsersync/commit/113e6c2fa9ebf71c217bba0b2811647de32322a6)
 
