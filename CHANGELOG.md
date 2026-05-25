@@ -1,5 +1,17 @@
 # CHANGELOG
 
+## 2026-05-25
+### Added
+- None.
+### Changed
+- Updated GitHub Actions Docker workflow to publish both moving tags and versioned tags derived from `DEMYX_VERSION` from the `demyx` orchestrator.
+### Fixed
+- None.
+### Removed
+- None.
+### Security
+- None.
+
 ## 2026-05-09
 - Set base image to Alpine 3.22
 - Update scheduled build runtime versions: Alpine `3.22.4` and Node `v22.22.2`
